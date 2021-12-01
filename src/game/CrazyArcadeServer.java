@@ -1,5 +1,5 @@
 package game;
-//JavaObjServer.java ObjectStream 기반 채팅 Server
+//JavaObjServer.java ObjectStream 湲곕컲 梨꾪똿 Server
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -37,10 +37,10 @@ public class CrazyArcadeServer extends JFrame {
 	JTextArea textArea;
 	private JTextField txtPortNumber;
 
-	private ServerSocket socket; // 서버소켓
-	private Socket client_socket; // accept() 에서 생성된 client 소켓
-	private Vector UserVec = new Vector(); // 연결된 사용자를 저장할 벡터
-	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
+	private ServerSocket socket; // �꽌踰꾩냼耳�
+	private Socket client_socket; // accept() �뿉�꽌 �깮�꽦�맂 client �냼耳�
+	private Vector UserVec = new Vector(); // �뿰寃곕맂 �궗�슜�옄瑜� ���옣�븷 踰≫꽣
+	private static final int BUF_LEN = 128; // Windows 泥섎읆 BUF_LEN �쓣 �젙�쓽
 	public Map map;
 
 	/**
@@ -100,8 +100,8 @@ public class CrazyArcadeServer extends JFrame {
 				}
 				AppendText("Chat Server Running..");
 				btnServerStart.setText("Chat Server Running..");
-				btnServerStart.setEnabled(false); // 서버를 더이상 실행시키지 못 하게 막는다
-				txtPortNumber.setEnabled(false); // 더이상 포트번호 수정못 하게 막는다
+				btnServerStart.setEnabled(false); // �꽌踰꾨�� �뜑�씠�긽 �떎�뻾�떆�궎吏� 紐� �븯寃� 留됰뒗�떎
+				txtPortNumber.setEnabled(false); // �뜑�씠�긽 �룷�듃踰덊샇 �닔�젙紐� �븯寃� 留됰뒗�떎
 				AcceptServer accept_server = new AcceptServer();
 				accept_server.start();
 			}
@@ -112,20 +112,20 @@ public class CrazyArcadeServer extends JFrame {
 		map = new Map("maps/map_1.txt");
 	}
 
-	// 새로운 참가자 accept() 하고 user thread를 새로 생성한다.
+	// �깉濡쒖슫 李멸��옄 accept() �븯怨� user thread瑜� �깉濡� �깮�꽦�븳�떎.
 	class AcceptServer extends Thread {
 		@SuppressWarnings("unchecked")
 		public void run() {
-			while (true) { // 사용자 접속을 계속해서 받기 위해 while문
+			while (true) { // �궗�슜�옄 �젒�냽�쓣 怨꾩냽�빐�꽌 諛쏄린 �쐞�빐 while臾�
 				try {
 					AppendText("Waiting new clients ...");
-					client_socket = socket.accept(); // accept가 일어나기 전까지는 무한 대기중
-					AppendText("새로운 참가자 from " + client_socket);
-					// User 당 하나씩 Thread 생성
+					client_socket = socket.accept(); // accept媛� �씪�뼱�굹湲� �쟾源뚯��뒗 臾댄븳 ��湲곗쨷
+					AppendText("�깉濡쒖슫 李멸��옄 from " + client_socket);
+					// User �떦 �븯�굹�뵫 Thread �깮�꽦
 					UserService new_user = new UserService(client_socket);
-					UserVec.add(new_user); // 새로운 참가자 배열에 추가
-					new_user.start(); // 만든 객체의 스레드 실행
-					AppendText("현재 참가자 수 " + UserVec.size());
+					UserVec.add(new_user); // �깉濡쒖슫 李멸��옄 諛곗뿴�뿉 異붽�
+					new_user.start(); // 留뚮뱺 媛앹껜�쓽 �뒪�젅�뱶 �떎�뻾
+					AppendText("�쁽�옱 李멸��옄 �닔 " + UserVec.size());
 				} catch (IOException e) {
 					AppendText("accept() error");
 					// System.exit(0);
@@ -135,21 +135,21 @@ public class CrazyArcadeServer extends JFrame {
 	}
 
 	public void AppendText(String str) {
-		// textArea.append("사용자로부터 들어온 메세지 : " + str+"\n");
+		// textArea.append("�궗�슜�옄濡쒕��꽣 �뱾�뼱�삩 硫붿꽭吏� : " + str+"\n");
 		textArea.append(str + "\n");
 		textArea.setCaretPosition(textArea.getText().length());
 	}
 
 	public void AppendObject(ChatMsg msg) {
-		// textArea.append("사용자로부터 들어온 object : " + str+"\n");
+		// textArea.append("�궗�슜�옄濡쒕��꽣 �뱾�뼱�삩 object : " + str+"\n");
 		textArea.append("code = " + msg.code + "\n");
 		textArea.append("id = " + msg.UserName + "\n");
 		textArea.append("data = " + msg.data + "\n");
 		textArea.setCaretPosition(textArea.getText().length());
 	}
 
-	// User 당 생성되는 Thread
-	// Read One 에서 대기 -> Write All
+	// User �떦 �깮�꽦�릺�뒗 Thread
+	// Read One �뿉�꽌 ��湲� -> Write All
 	class UserService extends Thread {
 		private InputStream is;
 		private OutputStream os;
@@ -166,7 +166,7 @@ public class CrazyArcadeServer extends JFrame {
 
 		public UserService(Socket client_socket) {
 			// TODO Auto-generated constructor stub
-			// 매개변수로 넘어온 자료 저장
+			// 留ㅺ컻蹂��닔濡� �꽆�뼱�삩 �옄猷� ���옣
 			this.client_socket = client_socket;
 			this.user_vc = UserVec;
 			try {
@@ -187,7 +187,7 @@ public class CrazyArcadeServer extends JFrame {
 //
 //				//String[] msg = line1.split(" ");
 //				//UserName = msg[1].trim();
-//				UserStatus = "O"; // Online 상태
+//				UserStatus = "O"; // Online �긽�깭
 //				Login();
 			} catch (Exception e) {
 				AppendText("userService error");
@@ -195,21 +195,21 @@ public class CrazyArcadeServer extends JFrame {
 		}
 
 		public void Login() {
-			AppendText("새로운 참가자 " + UserName + " 입장.");
+			AppendText("�깉濡쒖슫 李멸��옄 " + UserName + " �엯�옣.");
 			WriteOne("Welcome to Java chat server\n");
-			WriteOne(UserName + "님 환영합니다.\n"); // 연결된 사용자에게 정상접속을 알림
-			String msg = "[" + UserName + "]님이 입장 하였습니다.\n";
-			WriteOthers(msg); // 아직 user_vc에 새로 입장한 user는 포함되지 않았다.
+			WriteOne(UserName + "�떂 �솚�쁺�빀�땲�떎.\n"); // �뿰寃곕맂 �궗�슜�옄�뿉寃� �젙�긽�젒�냽�쓣 �븣由�
+			String msg = "[" + UserName + "]�떂�씠 �엯�옣 �븯���뒿�땲�떎.\n";
+			WriteOthers(msg); // �븘吏� user_vc�뿉 �깉濡� �엯�옣�븳 user�뒗 �룷�븿�릺吏� �븡�븯�떎.
 		}
 
 		public void Logout() {
-			String msg = "[" + UserName + "]님이 퇴장 하였습니다.\n";
-			UserVec.removeElement(this); // Logout한 현재 객체를 벡터에서 지운다
-			WriteAll(msg); // 나를 제외한 다른 User들에게 전송
-			AppendText("사용자 " + "[" + UserName + "] 퇴장. 현재 참가자 수 " + UserVec.size());
+			String msg = "[" + UserName + "]�떂�씠 �눜�옣 �븯���뒿�땲�떎.\n";
+			UserVec.removeElement(this); // Logout�븳 �쁽�옱 媛앹껜瑜� 踰≫꽣�뿉�꽌 吏��슫�떎
+			WriteAll(msg); // �굹瑜� �젣�쇅�븳 �떎瑜� User�뱾�뿉寃� �쟾�넚
+			AppendText("�궗�슜�옄 " + "[" + UserName + "] �눜�옣. �쁽�옱 李멸��옄 �닔 " + UserVec.size());
 		}
 
-		// 모든 User들에게 방송. 각각의 UserService Thread의 WriteONe() 을 호출한다.
+		// 紐⑤뱺 User�뱾�뿉寃� 諛⑹넚. 媛곴컖�쓽 UserService Thread�쓽 WriteONe() �쓣 �샇異쒗븳�떎.
 		public void WriteAll(String str) {
 			for (int i = 0; i < user_vc.size(); i++) {
 				UserService user = (UserService) user_vc.elementAt(i);
@@ -217,7 +217,7 @@ public class CrazyArcadeServer extends JFrame {
 					user.WriteOne(str);
 			}
 		}
-		// 모든 User들에게 Object를 방송. 채팅 message와 image object를 보낼 수 있다
+		// 紐⑤뱺 User�뱾�뿉寃� Object瑜� 諛⑹넚. 梨꾪똿 message�� image object瑜� 蹂대궪 �닔 �엳�떎
 		public void WriteAllObject(Object ob) {
 			for (int i = 0; i < user_vc.size(); i++) {
 				UserService user = (UserService) user_vc.elementAt(i);
@@ -233,7 +233,7 @@ public class CrazyArcadeServer extends JFrame {
 			}
 		}
 
-		// 나를 제외한 User들에게 방송. 각각의 UserService Thread의 WriteONe() 을 호출한다.
+		// �굹瑜� �젣�쇅�븳 User�뱾�뿉寃� 諛⑹넚. 媛곴컖�쓽 UserService Thread�쓽 WriteONe() �쓣 �샇異쒗븳�떎.
 		public void WriteOthers(String str) {
 			for (int i = 0; i < user_vc.size(); i++) {
 				UserService user = (UserService) user_vc.elementAt(i);
@@ -242,7 +242,7 @@ public class CrazyArcadeServer extends JFrame {
 			}
 		}
 
-		// Windows 처럼 message 제외한 나머지 부분은 NULL 로 만들기 위한 함수
+		// Windows 泥섎읆 message �젣�쇅�븳 �굹癒몄� 遺�遺꾩� NULL 濡� 留뚮뱾湲� �쐞�븳 �븿�닔
 		public byte[] MakePacket(String msg) {
 			byte[] packet = new byte[BUF_LEN];
 			byte[] bb = null;
@@ -260,7 +260,7 @@ public class CrazyArcadeServer extends JFrame {
 			return packet;
 		}
 
-		// UserService Thread가 담당하는 Client 에게 1:1 전송
+		// UserService Thread媛� �떞�떦�븯�뒗 Client �뿉寃� 1:1 �쟾�넚
 		public void WriteOne(String msg) {
 			try {
 				// dos.writeUTF(msg);
@@ -284,14 +284,14 @@ public class CrazyArcadeServer extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				Logout(); // 에러가난 현재 객체를 벡터에서 지운다
+				Logout(); // �뿉�윭媛��궃 �쁽�옱 媛앹껜瑜� 踰≫꽣�뿉�꽌 吏��슫�떎
 			}
 		}
 
-		// 귓속말 전송
+		// 洹볦냽留� �쟾�넚
 		public void WritePrivate(String msg) {
 			try {
-				ChatMsg obcm = new ChatMsg("귓속말", "200", msg);
+				ChatMsg obcm = new ChatMsg("洹볦냽留�", "200", msg);
 				oos.writeObject(obcm);
 			} catch (IOException e) {
 				AppendText("dos.writeObject() error");
@@ -305,7 +305,7 @@ public class CrazyArcadeServer extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				Logout(); // 에러가난 현재 객체를 벡터에서 지운다
+				Logout(); // �뿉�윭媛��궃 �쁽�옱 媛앹껜瑜� 踰≫꽣�뿉�꽌 吏��슫�떎
 			}
 		}
 		public void WriteOneObject(Object ob) {
@@ -330,7 +330,7 @@ public class CrazyArcadeServer extends JFrame {
 		}
 		public void login(ChatMsg cm) {
 			UserName = cm.UserName;
-			UserStatus = "O"; // Online 상태
+			UserStatus = "O"; // Online �긽�깭
 			Login();
 			loginSuccess(cm);
 		}
@@ -339,6 +339,9 @@ public class CrazyArcadeServer extends JFrame {
 			cm.data = msg;
 			cm.code = "101";
 			cm.playerNum = playerNum++;
+			if(playerNum > 1) {
+				playerNum = 0;
+			}
 			WriteOneObject(cm);
 		}
 		public void loginFail() {
@@ -349,9 +352,9 @@ public class CrazyArcadeServer extends JFrame {
 		}
 		public void chatMsg(String msg, ChatMsg cm) {
 			msg = String.format("[%s] %s", cm.UserName, cm.data);
-						AppendText(msg); // server 화면에 출력
-						String[] args = msg.split(" "); // 단어들을 분리한다.
-						if (args.length == 1) { // Enter key 만 들어온 경우 Wakeup 처리만 한다.
+						AppendText(msg); // server �솕硫댁뿉 異쒕젰
+						String[] args = msg.split(" "); // �떒�뼱�뱾�쓣 遺꾨━�븳�떎.
+						if (args.length == 1) { // Enter key 留� �뱾�뼱�삩 寃쎌슦 Wakeup 泥섎━留� �븳�떎.
 							UserStatus = "O";
 						} else if (args[1].matches("/exit")) {
 							Logout();
@@ -368,19 +371,19 @@ public class CrazyArcadeServer extends JFrame {
 							UserStatus = "S";
 						} else if (args[1].matches("/wakeup")) {
 							UserStatus = "O";
-						} else if (args[1].matches("/to")) { // 귓속말
+						} else if (args[1].matches("/to")) { // 洹볦냽留�
 							for (int i = 0; i < user_vc.size(); i++) {
 								UserService user = (UserService) user_vc.elementAt(i);
 								if (user.UserName.matches(args[2]) && user.UserStatus.matches("O")) {
 									String msg2 = "";
-									for (int j = 3; j < args.length; j++) {// 실제 message 부분
+									for (int j = 3; j < args.length; j++) {// �떎�젣 message 遺�遺�
 										msg2 += args[j];
 										if (j < args.length - 1)
 											msg2 += " ";
 									}
-									// /to 빼고.. [귓속말] [user1] Hello user2..
+									// /to 鍮쇨퀬.. [洹볦냽留�] [user1] Hello user2..
 									user.WritePrivate(args[0] + " " + msg2 + "\n");
-									//user.WriteOne("[귓속말] " + args[0] + " " + msg2 + "\n");
+									//user.WriteOne("[洹볦냽留�] " + args[0] + " " + msg2 + "\n");
 									break;
 								}
 							}
@@ -388,7 +391,7 @@ public class CrazyArcadeServer extends JFrame {
 							cm.code = "900";
 							cm.mapInfo = map.getMapInfo();
 							WriteOneObject(cm);
-						} else { // 일반 채팅 메시지
+						} else { // �씪諛� 梨꾪똿 硫붿떆吏�
 							UserStatus = "O";
 							//WriteAll(msg + "\n"); // Write All
 							WriteAllObject(cm);
@@ -478,7 +481,7 @@ public class CrazyArcadeServer extends JFrame {
 		}
 		
 		public void run() {
-			while (true) { // 사용자 접속을 계속해서 받기 위해 while문
+			while (true) { // �궗�슜�옄 �젒�냽�쓣 怨꾩냽�빐�꽌 諛쏄린 �쐞�빐 while臾�
 				try {
 					// String msg = dis.readUTF();
 //					byte[] b = new byte[BUF_LEN];
@@ -494,10 +497,10 @@ public class CrazyArcadeServer extends JFrame {
 //							break;
 //						} catch (Exception ee) {
 //							break;
-//						} // catch문 끝
+//						} // catch臾� �걹
 //					}
 //					String msg = new String(b, "euc-kr");
-//					msg = msg.trim(); // 앞뒤 blank NULL, \n 모두 제거
+//					msg = msg.trim(); // �븵�뮘 blank NULL, \n 紐⑤몢 �젣嫄�
 					Object obcm = null;
 					String msg = null;
 					ChatMsg cm = null;
@@ -588,12 +591,12 @@ public class CrazyArcadeServer extends JFrame {
 						ois.close();
 						oos.close();
 						client_socket.close();
-						Logout(); // 에러가난 현재 객체를 벡터에서 지운다
+						Logout(); // �뿉�윭媛��궃 �쁽�옱 媛앹껜瑜� 踰≫꽣�뿉�꽌 吏��슫�떎
 						break;
 					} catch (Exception ee) {
 						break;
-					} // catch문 끝
-				} // 바깥 catch문끝
+					} // catch臾� �걹
+				} // 諛붽묑 catch臾몃걹
 			} // while
 		} // run
 	}
