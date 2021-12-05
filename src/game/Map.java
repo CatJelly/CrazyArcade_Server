@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 public class Map {
-	private int [][] mapInfo = new int[13][15];
+	public int [][] mapInfo = new int[13][15];
 	
 	public Map(String path) {
 		try {
@@ -30,6 +30,8 @@ public class Map {
 	public void mapLoad() {
 		
 	}
+	
+	
 	
 	public boolean collideCheck(int xPos, int yPos, int left_right, int up_down) {
 		boolean check = true;

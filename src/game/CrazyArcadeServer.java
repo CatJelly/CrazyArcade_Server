@@ -459,8 +459,12 @@ public class CrazyArcadeServer extends JFrame {
 		public void playerStatus(ChatMsg cm) {
 			WriteAllObject(cm);
 		}
-		public void bombSet() {
-			
+		public void bombSet(ChatMsg cm) {
+			WriteAllObject(cm);
+		}
+		public void bombExplodeEnd(ChatMsg cm) {
+			map.mapInfo = cm.mapInfo;
+			WriteAllObject(cm);
 		}
 		public void playerKill() {
 
@@ -565,7 +569,10 @@ public class CrazyArcadeServer extends JFrame {
 						playerStatus(cm);
 							break;
 						case "700": //Bomb Set
-						bombSet();
+						bombSet(cm);
+							break;
+						case "702": //Bomb Set
+						bombExplodeEnd(cm);
 							break;
 						case "800": //Player Kill
 						playerKill();
