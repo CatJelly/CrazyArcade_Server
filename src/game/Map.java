@@ -37,13 +37,12 @@ public class Map {
 		boolean check = true;
 		int x = xPos + (int)(Math.ceil((double)left_right / MapObject.BLOCK_SIZE));
 		int y = yPos + (int)(Math.ceil((double)up_down / MapObject.BLOCK_SIZE));
-		System.out.println("x = " + xPos + ", y = " + yPos);
-		System.out.println(x + ", " + y);
 		if(xPos < 0 || yPos < 0 || xPos >= mapInfo[0].length || yPos >= mapInfo.length)
 			check = true;
 		else if(mapInfo[yPos][xPos] == 0 || mapInfo[yPos][xPos] == 5)
-		//else if(mapInfo[y][x] == 0 || mapInfo[y][x] == 5)
 			check = false;
+		else if(mapInfo[y][x] == 0 || mapInfo[y][x] == 5)
+			check = true;
 		else
 			check = true;
 		
